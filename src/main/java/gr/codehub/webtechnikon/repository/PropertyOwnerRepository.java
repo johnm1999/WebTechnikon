@@ -11,9 +11,11 @@ import java.util.Optional;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@NoArgsConstructor
 @RequestScoped
 public class PropertyOwnerRepository implements Repository<PropertyOwner> {
 

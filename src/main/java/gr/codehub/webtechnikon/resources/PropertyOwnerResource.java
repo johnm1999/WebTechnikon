@@ -31,30 +31,26 @@ public class PropertyOwnerResource {
             return Response.ok(owner).build();
         } catch (OwnerNotFoundException e) {
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity("Owner with ID " + id + " not found.")
-                    .build();
+                       .entity("Owner with ID " + id + " not found.")
+                       .build();
         }
     }
 
     @POST
     @Path("create")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response create(PropertyOwner propertyOwner) {
-        try {
-            PropertyOwner createdOwner = propertyOwnerService.create(
-                    propertyOwner.getVat().toString(),
-                    propertyOwner.getPhoneNumber().toString(),
-                    propertyOwner.getAddress(),
-                    propertyOwner.getFirstName(),
-                    propertyOwner.getLastName(),
-                    propertyOwner.getPassword(),
-                    propertyOwner.getUserName(),
-                    propertyOwner.getEmail()
-            );
-            return Response.status(Response.Status.CREATED).entity(createdOwner).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }
+        propertyOwnerService.create(
+                propertyOwner.getFirstName(),
+                propertyOwner.getLastName(), 
+                propertyOwner.getEmail(), 
+                propertyOwner.getUserName(), 
+                propertyOwner.getPhoneNumber().toString(), 
+                propertyOwner.getAddress(), 
+                propertyOwner.getVat().toString(), 
+                propertyOwner.getPassword());
+        return Response.ok(propertyOwner).build();
     }
 
     @PUT
