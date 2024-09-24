@@ -19,8 +19,15 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
+    
+    @Override
+    @Transactional
+    public void create(PropertyOwner propertyOwner) {
+        entityManager.persist(propertyOwner);
+    }
 
     @Override
+    @Transactional
     public void update(PropertyOwner propertyOwner) throws PersistenceException {
         entityManager.getTransaction().begin();
         entityManager.merge(propertyOwner);
@@ -28,6 +35,7 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
     }
 
     @Override
+    @Transactional
     public void delete(PropertyOwner propertyOwner) throws IllegalArgumentException, NullPointerException {
         entityManager.getTransaction().begin();
         entityManager.remove(propertyOwner);
