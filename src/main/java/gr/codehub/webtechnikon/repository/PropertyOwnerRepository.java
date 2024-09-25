@@ -31,9 +31,7 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
     @Override
     @Transactional
     public void update(PropertyOwner propertyOwner) throws PersistenceException {
-        entityManager.getTransaction().begin();
         entityManager.merge(propertyOwner);
-        entityManager.getTransaction().commit();
     }
 
     @Override

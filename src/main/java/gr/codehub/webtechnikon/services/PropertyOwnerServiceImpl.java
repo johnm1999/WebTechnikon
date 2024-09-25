@@ -17,11 +17,11 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
 
     @Inject
     private PropertyOwnerRepository propertyOwnerRepository;
-    
+
     private PropertyOwner propertyOwner;
-    
+
     @Override
-    public List<PropertyOwner> getAllOwners(){
+    public List<PropertyOwner> getAllOwners() {
         return propertyOwnerRepository.findAll();
     }
 
@@ -46,13 +46,13 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
 
     @Override
     public PropertyOwner create(String firstName,
-                                String lastName,
-                                String email,
-                                String userName,
-                                String phoneNumber,
-                                String address,
-                                String vat,
-                                String password) throws PropertyOwnerExistsException, InvalidInputException, MissingInputException {
+            String lastName,
+            String email,
+            String userName,
+            String phoneNumber,
+            String address,
+            String vat,
+            String password) throws PropertyOwnerExistsException, InvalidInputException, MissingInputException {
         try {
 //            if (!PatternService.EMAIL_PATTERN.matcher(email.trim()).matches()) {
 //                throw new InvalidInputException("This is not a valid email");
@@ -87,7 +87,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             if (e.getMessage().contains("PropertyValueException")) {
                 throw new MissingInputException("There's input missing");
 
-            // the user already exists
+                // the user already exists
             } else {
                 throw new PropertyOwnerExistsException("This user already exists");
             }
@@ -109,11 +109,23 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         existingOwner.setIsActive(false);
         propertyOwnerRepository.update(existingOwner);
     }
-    
+
     @Override
-    public void update(PropertyOwner updatedPropertyOwner) throws InvalidInputException, PropertyOwnerExistsException, OwnerNotFoundException {
+    public void update(PropertyOwner updatedPropertyOwner) throws InvalidInputException, PropertyOwnerExistsException {
         PropertyOwner existingOwner = get(updatedPropertyOwner.getId());
+        if (existingOwner == null) {
+            throw new OwnerNotFoundException("Owner with id " + updatedPropertyOwner.getId() + " not found.");
+        }
+        existingOwner.setVat(updatedPropertyOwner.getVat());
+        existingOwner.setFirstName(updatedPropertyOwner.getFirstName());
+        existingOwner.setLastName(updatedPropertyOwner.getLastName());
+        existingOwner.setAddress(updatedPropertyOwner.getAddress());
+        existingOwner.setPhoneNumber(updatedPropertyOwner.getPhoneNumber());
+        existingOwner.setEmail(updatedPropertyOwner.getEmail());
+        existingOwner.setUserName(updatedPropertyOwner.getUserName());
+        existingOwner.setPassword(updatedPropertyOwner.getPassword());
+        
         propertyOwnerRepository.update(existingOwner);
     }
-  
+
 }

@@ -26,16 +26,16 @@ public class PropertyOwnerResource {
     @GET
     @Path("getall")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAll(){
+    public Response getAll() {
         return Response.ok(propertyOwnerService.getAllOwners()).build();
     }
-    
+
     @GET
     @Path("getbyid/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") Long id) {
-            PropertyOwner owner = propertyOwnerService.get(id);
-            return Response.ok(owner).build();
+        PropertyOwner owner = propertyOwnerService.get(id);
+        return Response.ok(owner).build();
     }
 
     @POST
@@ -57,14 +57,12 @@ public class PropertyOwnerResource {
 
     @PUT
     @Path("updateby/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public Response update(@PathParam("id") Long id, PropertyOwner propertyOwner) {
-        try {
-            propertyOwner.setId(id);  // Set the ID for the existing owner
-            propertyOwnerService.update(propertyOwner);
-            return Response.ok().build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }
+        propertyOwner.setId(id);  // Set the ID for the existing owner
+        propertyOwnerService.update(propertyOwner);
+        return Response.ok(propertyOwner).build();
     }
 
     @DELETE
