@@ -104,6 +104,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
     }
 
+    @Override
     public void safeDelete(PropertyOwner propertyOwner) throws PersistenceException {
         PropertyOwner existingOwner = get(propertyOwner.getId());
         existingOwner.setIsActive(false);

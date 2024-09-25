@@ -65,6 +65,15 @@ public class PropertyOwnerResource {
         return Response.ok(propertyOwner).build();
     }
 
+    @PUT
+    @Path("safedeleteby/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response safeDelete(@PathParam("id") Long id) {
+        PropertyOwner owner = propertyOwnerService.get(id);
+        propertyOwnerService.safeDelete(owner);
+        return Response.ok("Owner with id:" + owner.getId() + "has been deleted").build();
+    }
+
     @DELETE
     @Path("deleteby/{id}")
     public Response delete(@PathParam("id") Long id) {

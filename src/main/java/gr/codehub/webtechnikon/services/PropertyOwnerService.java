@@ -19,6 +19,8 @@ public interface PropertyOwnerService {
             String password);
 
     void delete(Long id);
+    
+    void safeDelete(PropertyOwner propertyOwner);
 
     void update(PropertyOwner Owner);
 
