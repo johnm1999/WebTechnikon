@@ -46,18 +46,11 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
 
     @Override
     public <V> Optional<PropertyOwner> findById(V id) {
-        try {
-            entityManager.getTransaction().begin();
             PropertyOwner owner = entityManager.find(PropertyOwner.class, id);
-            entityManager.getTransaction().commit();
             if (owner.getIsActive() == false) {
                 return Optional.empty();
             }
             return Optional.of(owner);
-        } catch (Exception e) {
-            log.debug("Owner not found");
-        }
-        return Optional.empty();
     }
 
     @Override

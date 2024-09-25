@@ -24,16 +24,18 @@ public class PropertyOwnerResource {
     private PropertyOwnerServiceImpl propertyOwnerService;
 
     @GET
+    @Path("getall")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAll(){
+        return Response.ok(propertyOwnerService.getAllOwners()).build();
+    }
+    
+    @GET
     @Path("getbyid/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") Long id) {
-        try {
             PropertyOwner owner = propertyOwnerService.get(id);
             return Response.ok(owner).build();
-        } catch (OwnerNotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND)
-                       .entity("Owner with ID " + id + " not found.")
-                       .build();
-        }
     }
 
     @POST
@@ -43,12 +45,12 @@ public class PropertyOwnerResource {
     public Response create(PropertyOwner propertyOwner) {
         propertyOwnerService.create(
                 propertyOwner.getFirstName(),
-                propertyOwner.getLastName(), 
-                propertyOwner.getEmail(), 
-                propertyOwner.getUserName(), 
-                propertyOwner.getPhoneNumber().toString(), 
-                propertyOwner.getAddress(), 
-                propertyOwner.getVat().toString(), 
+                propertyOwner.getLastName(),
+                propertyOwner.getEmail(),
+                propertyOwner.getUserName(),
+                propertyOwner.getPhoneNumber().toString(),
+                propertyOwner.getAddress(),
+                propertyOwner.getVat().toString(),
                 propertyOwner.getPassword());
         return Response.ok(propertyOwner).build();
     }

@@ -8,6 +8,7 @@ import gr.codehub.webtechnikon.model.PropertyOwner;
 import gr.codehub.webtechnikon.repository.PropertyOwnerRepository;
 import jakarta.inject.Inject;
 import jakarta.persistence.PersistenceException;
+import java.util.List;
 import java.util.Optional;
 import lombok.Data;
 
@@ -18,6 +19,11 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     private PropertyOwnerRepository propertyOwnerRepository;
     
     private PropertyOwner propertyOwner;
+    
+    @Override
+    public List<PropertyOwner> getAllOwners(){
+        return propertyOwnerRepository.findAll();
+    }
 
     @Override
     public PropertyOwner get(Long id) throws OwnerNotFoundException {

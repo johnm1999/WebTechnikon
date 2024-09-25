@@ -1,5 +1,6 @@
 package gr.codehub.webtechnikon.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDate;
 import jakarta.persistence.*;
@@ -20,6 +21,7 @@ public class PropertyRepair implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "propertyOwner_id")
+    @JsonBackReference
     private PropertyOwner propertyOwner;
 
     @ManyToOne

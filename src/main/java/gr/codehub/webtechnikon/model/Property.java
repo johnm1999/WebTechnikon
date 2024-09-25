@@ -1,5 +1,6 @@
 package gr.codehub.webtechnikon.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -37,6 +38,7 @@ public class Property implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "propertyOwner_id")
+    @JsonBackReference
     private PropertyOwner propertyOwner;
 
     @Column(name = "isActive", nullable = false)

@@ -1,5 +1,7 @@
 package gr.codehub.webtechnikon.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -49,9 +51,11 @@ public class PropertyOwner implements Serializable {
     private Boolean isActive;
 
     @OneToMany(mappedBy = "propertyOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Property> properties;
 
     @OneToMany(mappedBy = "propertyOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<PropertyRepair> propertyRepairs;
     
 }

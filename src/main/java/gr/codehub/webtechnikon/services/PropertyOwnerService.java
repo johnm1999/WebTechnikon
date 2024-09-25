@@ -1,10 +1,13 @@
 package gr.codehub.webtechnikon.services;
 
 import gr.codehub.webtechnikon.model.PropertyOwner;
+import java.util.List;
 
 public interface PropertyOwnerService {
 
     PropertyOwner get(Long id);
+    
+    List<PropertyOwner> getAllOwners();
 
     PropertyOwner create(String firstName,
             String lastName,
