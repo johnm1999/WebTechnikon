@@ -37,9 +37,7 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
     @Override
     @Transactional
     public void delete(PropertyOwner propertyOwner) throws IllegalArgumentException, NullPointerException {
-        entityManager.getTransaction().begin();
         entityManager.remove(propertyOwner);
-        entityManager.getTransaction().commit();
     }
 
     @Override

@@ -1,11 +1,10 @@
 package gr.codehub.webtechnikon.repository;
 
-import gr.codehub.webtechnikon.model.PropertyOwner;
 import java.util.List;
 import java.util.Optional;
 
 public interface Repository<T> {
-    void create(PropertyOwner propertyOwner);
+    void create(T t);
     
     void update(T t);
 
