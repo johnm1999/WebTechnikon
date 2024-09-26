@@ -12,6 +12,9 @@ public interface PropertyService {
     void update(Property updateProperty);
 
     Optional<Property> findByPropertyIdNumber(Long propertyIdNumber);
+        
+    List<Property> getAll();
+
 
     List<Property> findByOwnerVatNumber(Long vatNumber);
 

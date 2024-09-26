@@ -29,6 +29,10 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyRepository.findByPropertyIdNumber(propertyIdNumber);
     }
 
+    public List<Property> getAll(){
+        return propertyRepository.findAll();
+    }
+
     @Override
     public List<Property> findByOwnerVatNumber(Long vatNumber) {
         return propertyRepository.findByOwnerVatNumber(vatNumber);
@@ -75,20 +79,20 @@ public class PropertyServiceImpl implements PropertyService {
         propertyRepository.update(existProperty);
 
     }
-    
+
     @Override
-    public void softDeleteProperty(Property property){
+    public void softDeleteProperty(Property property) {
         Property existProperty = (Property) get(property.getId());
         existProperty.setIsActive(false);
         propertyRepository.update(existProperty);
     }
-    
+
     @Override
-    public void deleteProperty(Long id){
+    public void deleteProperty(Long id) {
         Property existProperty = (Property) get(id);
-        try{
+        try {
             propertyRepository.delete(existProperty);
-        }catch(IllegalArgumentException | NullPointerException e){
+        } catch (IllegalArgumentException | NullPointerException e) {
             throw new ResourceNotFoundException("Property with ID " + id + " does not exist or is inactive.");
         }
     }
