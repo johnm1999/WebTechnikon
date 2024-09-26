@@ -54,8 +54,5 @@ public class PropertyOwner implements Serializable {
     @JsonIgnore
     private List<Property> properties;
 
-    @OneToMany(mappedBy = "propertyOwner", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
-    private List<PropertyRepair> propertyRepairs;
     
 }

@@ -1,6 +1,7 @@
 package gr.codehub.webtechnikon.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -45,6 +46,7 @@ public class Property implements Serializable {
     private Boolean isActive;
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<PropertyRepair> propertyRepairs;
 
     @Override
