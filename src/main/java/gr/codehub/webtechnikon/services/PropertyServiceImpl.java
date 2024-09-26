@@ -3,6 +3,7 @@ package gr.codehub.webtechnikon.services;
 import gr.codehub.webtechnikon.exception.DuplicateEntryException;
 import gr.codehub.webtechnikon.exception.InvalidInputException;
 import gr.codehub.webtechnikon.exception.OwnerNotFoundException;
+import gr.codehub.webtechnikon.exception.PropertyNotFoundException;
 import gr.codehub.webtechnikon.exception.ResourceNotFoundException;
 import gr.codehub.webtechnikon.model.Property;
 import gr.codehub.webtechnikon.model.PropertyOwner;
@@ -63,12 +64,23 @@ public class PropertyServiceImpl implements PropertyService {
         return property;
     }
 
+    //helping method get
+    public Property get(Long id){
+        Optional<Property> optionalProperty = propertyRepository.findById(id);
+        if(optionalProperty.isEmpty()){
+            throw new PropertyNotFoundException("Property does not exist ");
+        }
+        else{
+            return optionalProperty.get();
+        }
+    }
+    
     //edw isws na eexei kapoio lathos an den treksei na to dw SOSSS.
     //Na valw kai mesa sto if to owner service
     @Override
     public void update(Property updateProperty) throws InvalidInputException {
-        Property existProperty = (Property) get(updateProperty.getId());
-        if (!existProperty.getIsActive() || existProperty == null) {
+        Property existProperty = get(updateProperty.getId());
+        if (!existProperty.getIsActive()) {
             throw new ResourceNotFoundException("Property with ID " + updateProperty.getId() + " does not exist or is inactive.");
         }
         existProperty.setPropertyId(updateProperty.getPropertyId());

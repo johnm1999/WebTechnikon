@@ -114,7 +114,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     @Override
     public void update(PropertyOwner updatedPropertyOwner) throws InvalidInputException, PropertyOwnerExistsException {
         PropertyOwner existingOwner = get(updatedPropertyOwner.getId());
-        if (existingOwner == null) {
+        if (!existingOwner.getIsActive()) {
             throw new OwnerNotFoundException("Owner with id " + updatedPropertyOwner.getId() + " not found.");
         }
         existingOwner.setVat(updatedPropertyOwner.getVat());
