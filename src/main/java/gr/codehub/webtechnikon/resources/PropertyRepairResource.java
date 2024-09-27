@@ -44,9 +44,8 @@ public class PropertyRepairResource {
         boolean accepted = request.isAccepted();
         
         PropertyRepair propertyRepair = propertyRepairService.getById(id);
-
-        propertyRepairService.acceptRepair(propertyRepair);
-        
-        return Response.ok(propertyRepair).build();
+        propertyRepair.setOwnerAcceptance(accepted);
+                
+        return Response.ok("Owner Accept:" + propertyRepairService.acceptRepair(propertyRepair)).build();
     }
 }
