@@ -21,7 +21,7 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
 
     @PersistenceContext(unitName = "Persistence")
     private EntityManager entityManager;
-    
+
     @Override
     @Transactional
     public void create(PropertyOwner propertyOwner) {
@@ -42,11 +42,11 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
 
     @Override
     public <V> Optional<PropertyOwner> findById(V id) {
-            PropertyOwner owner = entityManager.find(PropertyOwner.class, id);
-            if (owner.getIsActive() == false) {
-                return Optional.empty();
-            }
-            return Optional.of(owner);
+        PropertyOwner owner = entityManager.find(PropertyOwner.class, id);
+        if (owner.getIsActive() == false) {
+            return Optional.empty();
+        }
+        return Optional.of(owner);
     }
 
     @Override
@@ -60,8 +60,8 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
     @Transactional
     public PropertyOwner searchByEmail(String email) {
 
-        List<PropertyOwner> owner = entityManager.createQuery("SELECT po FROM PropertyOwner po WHERE po.email LIKE: givenEmail")
-                .setParameter("givenEmail", email)
+        List<PropertyOwner> owner = entityManager.createQuery("SELECT po FROM PropertyOwner po WHERE po.email = :email", PropertyOwner.class)
+                .setParameter("email", email)
                 .getResultList();
 
         if (owner.isEmpty()) {
@@ -77,8 +77,8 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
 
     public PropertyOwner searchByVat(Long vat) {
 
-        List<PropertyOwner> owner = entityManager.createQuery("SELECT po FROM PropertyOwner po WHERE po.vat LIKE ?1")
-                .setParameter(1, vat)
+        List<PropertyOwner> owner = entityManager.createQuery("SELECT po FROM PropertyOwner po WHERE po.vat = :vat", PropertyOwner.class)
+                .setParameter("vat", vat)
                 .getResultList();
 
         if (owner.isEmpty()) {

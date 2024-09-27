@@ -49,7 +49,7 @@ public class PropertyOwnerResource {
     @GET
     @Path("getbyemail/{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getByVat(@PathParam("vat") String email) {
+    public Response getByVat(@PathParam("email") String email) {
         PropertyOwner owner = propertyOwnerService.searchByEmail(email);
         return Response.ok(owner).build();
     }
