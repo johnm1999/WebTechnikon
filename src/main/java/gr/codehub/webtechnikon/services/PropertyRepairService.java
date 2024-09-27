@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface PropertyRepairService {
-    void initiateRepair(Long ownerId, Long propertyId, TypeOfRepairEnum typeOfRepair, String shortDescription, String fullDescription);
+    void initiateRepair(Long propertyId, TypeOfRepairEnum typeOfRepair, String shortDescription, String fullDescription);
     List<PropertyRepair> findRepairsInProgress(Long propertyId);
     List<PropertyRepair> findRepairsCompleted(Long propertyId);
     void deletePendingRepair(Long repairId);
@@ -16,4 +16,5 @@ public interface PropertyRepairService {
     List<PropertyRepair> searchRepairsByDateRage(LocalDate startDate,LocalDate endDate);
     List<PropertyRepair> searchRepairsBySubmissionDate(LocalDate submissionDate);
     void softDelete(Long repairId);
+    PropertyRepair getById(Long id);
 }
