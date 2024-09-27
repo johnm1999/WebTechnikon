@@ -36,12 +36,22 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
     }
 
-    public PropertyOwner signInOwner(String email, String password) throws OwnerNotFoundException, InvalidInputException {
-        PropertyOwner propertyOwner = propertyOwnerRepository.searchByEmail(email);
-        if (propertyOwner.getPassword().equals(password)) {
+    public PropertyOwner searchByVat(Long Vat){
+        PropertyOwner propertyOwner = propertyOwnerRepository.searchByVat(Vat);
+        if (propertyOwner == null) {
+            throw new OwnerNotFoundException("This is not an existing owner");
+        } else {
             return propertyOwner;
         }
-        throw new InvalidInputException("You entered the wrong password");
+    }
+    
+    public PropertyOwner searchByEmail(String email){
+        PropertyOwner propertyOwner = propertyOwnerRepository.searchByEmail(email);
+        if (propertyOwner == null) {
+            throw new OwnerNotFoundException("This is not an existing owner");
+        } else {
+            return propertyOwner;
+        }
     }
 
     @Override

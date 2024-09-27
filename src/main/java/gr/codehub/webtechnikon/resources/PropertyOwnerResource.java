@@ -37,6 +37,22 @@ public class PropertyOwnerResource {
         PropertyOwner owner = propertyOwnerService.get(id);
         return Response.ok(owner).build();
     }
+    
+    @GET
+    @Path("getbyvat/{vat}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getByVat(@PathParam("vat") Long vat) {
+        PropertyOwner owner = propertyOwnerService.searchByVat(vat);
+        return Response.ok(owner).build();
+    }
+    
+    @GET
+    @Path("getbyemail/{email}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getByVat(@PathParam("vat") String email) {
+        PropertyOwner owner = propertyOwnerService.searchByEmail(email);
+        return Response.ok(owner).build();
+    }
 
     @POST
     @Path("create")
