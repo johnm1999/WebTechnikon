@@ -77,11 +77,8 @@ public class PropertyOwnerResource {
     @DELETE
     @Path("deleteby/{id}")
     public Response delete(@PathParam("id") Long id) {
-        try {
-            propertyOwnerService.delete(id);
-            return Response.noContent().build();
-        } catch (OwnerNotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).entity(e.getMessage()).build();
-        }
+        propertyOwnerService.delete(id);
+        return Response.noContent().build();
+
     }
 }

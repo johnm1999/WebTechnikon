@@ -97,9 +97,9 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
     @Override
     public void delete(Long owner_Id) throws OwnerNotFoundException {
         PropertyOwner owner = get(owner_Id);
-        try {
+        if(owner != null){
             propertyOwnerRepository.delete(owner);
-        } catch (IllegalArgumentException | NullPointerException e) {
+        }else{
             throw new OwnerNotFoundException("This is not an existing user");
         }
     }
@@ -125,7 +125,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         existingOwner.setEmail(updatedPropertyOwner.getEmail());
         existingOwner.setUserName(updatedPropertyOwner.getUserName());
         existingOwner.setPassword(updatedPropertyOwner.getPassword());
-        
+
         propertyOwnerRepository.update(existingOwner);
     }
 
