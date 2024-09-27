@@ -66,18 +66,18 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
             String vat,
             String password) throws PropertyOwnerExistsException, InvalidInputException, MissingInputException {
         try {
-//            if (!PatternService.EMAIL_PATTERN.matcher(email.trim()).matches()) {
-//                throw new InvalidInputException("This is not a valid email");
-//            }
-//            if (!PatternService.PASSWORD_PATTERN.matcher(password.trim()).matches()) {
-//                throw new InvalidInputException("This is not a valid password");
-//            }
-//            if (!PatternService.VAT_PATTERN.matcher(vat.trim()).matches()) {
-//                throw new InvalidInputException("This is not a valid vat number");
-//            }
-//            if (!PatternService.PHONE_NUMBER_PATTERN.matcher(phoneNumber.trim()).matches()) {
-//                throw new InvalidInputException("This is not a valid phone number");
-//            }
+            if (!PatternService.EMAIL_PATTERN.matcher(email.trim()).matches()) {
+                throw new InvalidInputException("This is not a valid email");
+            }
+            if (!PatternService.PASSWORD_PATTERN.matcher(password.trim()).matches()) {
+                throw new InvalidInputException("This is not a valid password");
+            }
+            if (!PatternService.VAT_PATTERN.matcher(vat.trim()).matches()) {
+                throw new InvalidInputException("This is not a valid vat number");
+            }
+            if (!PatternService.PHONE_NUMBER_PATTERN.matcher(phoneNumber.trim()).matches()) {
+                throw new InvalidInputException("This is not a valid phone number");
+            }
 
             propertyOwner = PropertyOwner.builder()
                     .vat(Long.valueOf(vat))
