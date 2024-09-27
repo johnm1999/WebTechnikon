@@ -94,4 +94,22 @@ public class PropertyRepairResource {
         
         return Response.ok(repairs).build();
     }
+    
+    @GET
+    @Path("/searchBysubmdate")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response searchRepairsSumbissionDate(@QueryParam("submDate") String submDateStr){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate sDate = LocalDate.parse(submDateStr, formatter);
+        List<PropertyRepair> repairs = propertyRepairService.searchRepairsBySubmissionDate(sDate);
+        return Response.ok(repairs).build();
+    }
+    
+    @PUT
+    @Path("safedeleteby/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response safeDelete(@PathParam("id") Long id) {
+        propertyRepairService.softDelete(id);
+        return Response.ok("Repair with id:" +id + "has been deleted").build();
+    }
 }
