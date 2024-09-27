@@ -1,5 +1,6 @@
 package gr.codehub.webtechnikon.resources;
 
+import gr.codehub.webtechnikon.exception.InvalidInputException;
 import gr.codehub.webtechnikon.model.AcceptRepairRequest;
 import gr.codehub.webtechnikon.model.PropertyRepair;
 import gr.codehub.webtechnikon.services.PropertyRepairService;
@@ -76,8 +77,21 @@ public class PropertyRepairResource {
         propertyRepairService.deletePendingRepair(id);
         return Response.ok("DELETED").build();
     }
-    
-//    public Response update()
+
+    @PUT
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response update(PropertyRepair propertyRepair) {
+        try {
+            propertyRepairService.updateRepair(propertyRepair);
+            return Response.ok(propertyRepair).build();
+        } catch (InvalidInputException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build(); 
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("An error occurred while updating the repair.").build(); 
+        }
+    }
 
     @GET
     @Path("/searchByDateRange")
@@ -91,25 +105,25 @@ public class PropertyRepairResource {
         LocalDate endDate = LocalDate.parse(endDateStr, formatter);
 
         List<PropertyRepair> repairs = propertyRepairService.searchRepairsByDateRage(startDate, endDate);
-        
+
         return Response.ok(repairs).build();
     }
-    
+
     @GET
     @Path("/searchBysubmdate")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response searchRepairsSumbissionDate(@QueryParam("submDate") String submDateStr){
+    public Response searchRepairsSumbissionDate(@QueryParam("submDate") String submDateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate sDate = LocalDate.parse(submDateStr, formatter);
         List<PropertyRepair> repairs = propertyRepairService.searchRepairsBySubmissionDate(sDate);
         return Response.ok(repairs).build();
     }
-    
+
     @PUT
     @Path("safedeleteby/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response safeDelete(@PathParam("id") Long id) {
         propertyRepairService.softDelete(id);
-        return Response.ok("Repair with id:" +id + "has been deleted").build();
+        return Response.ok("Repair with id:" + id + "has been deleted").build();
     }
 }
