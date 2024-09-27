@@ -63,16 +63,16 @@ public class PropertyRepairRepository implements Repository<PropertyRepair> {
         return query.getResultList();
     }
 
-    @Transactional
-    public List<PropertyRepair> searchByOwnerId(Long ownerId) {
-        TypedQuery<PropertyRepair> query = entityManager.createQuery(
-                "SELECT r FROM PropertyRepair r WHERE r.ownerId = :ownerId AND isActive = TRUE", PropertyRepair.class);
-        query.setParameter("ownerId", ownerId);
-        if (query.getResultList().isEmpty()) {
-            throw new OwnerNotFoundException("There is no Owner :" + ownerId);
-        }
-        return query.getResultList();
-    }
+//    @Transactional
+//    public List<PropertyRepair> searchByOwnerId(Long ownerId) {
+//        TypedQuery<PropertyRepair> query = entityManager.createQuery(
+//                "SELECT r FROM PropertyRepair r WHERE r.ownerId = :ownerId AND isActive = TRUE", PropertyRepair.class);
+//        query.setParameter("ownerId", ownerId);
+//        if (query.getResultList().isEmpty()) {
+//            throw new OwnerNotFoundException("There is no Owner :" + ownerId);
+//        }
+//        return query.getResultList();
+//    }
     
     @Override
     @Transactional
