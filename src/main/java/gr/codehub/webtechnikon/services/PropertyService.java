@@ -14,6 +14,8 @@ public interface PropertyService {
     Optional<Property> findByPropertyIdNumber(Long propertyIdNumber);
         
     List<Property> getAll();
+    
+    public List<Property> getProperties(Long vat);
 
 
     List<Property> findByOwnerVatNumber(Long vatNumber);

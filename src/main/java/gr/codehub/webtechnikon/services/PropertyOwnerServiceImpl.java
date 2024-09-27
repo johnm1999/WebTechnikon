@@ -36,6 +36,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
     }
 
+    @Override
     public PropertyOwner searchByVat(Long Vat){
         PropertyOwner propertyOwner = propertyOwnerRepository.searchByVat(Vat);
         if (propertyOwner == null) {
@@ -45,6 +46,7 @@ public class PropertyOwnerServiceImpl implements PropertyOwnerService {
         }
     }
     
+    @Override
     public PropertyOwner searchByEmail(String email){
         PropertyOwner propertyOwner = propertyOwnerRepository.searchByEmail(email);
         if (propertyOwner == null) {

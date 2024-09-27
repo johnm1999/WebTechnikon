@@ -23,5 +23,9 @@ public interface PropertyOwnerService {
     void safeDelete(PropertyOwner propertyOwner);
 
     void update(PropertyOwner Owner);
+    
+    public PropertyOwner searchByVat(Long Vat);
+    
+    public PropertyOwner searchByEmail(String email);
 
 }

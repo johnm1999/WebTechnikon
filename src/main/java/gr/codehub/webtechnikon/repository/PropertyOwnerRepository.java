@@ -74,7 +74,8 @@ public class PropertyOwnerRepository implements Repository<PropertyOwner> {
 
         return (PropertyOwner) owner.get(0);
     }
-
+    
+    @Transactional
     public PropertyOwner searchByVat(Long vat) {
 
         List<PropertyOwner> owner = entityManager.createQuery("SELECT po FROM PropertyOwner po WHERE po.vat = :vat", PropertyOwner.class)

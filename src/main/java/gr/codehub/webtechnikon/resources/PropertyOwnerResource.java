@@ -37,7 +37,7 @@ public class PropertyOwnerResource {
         PropertyOwner owner = propertyOwnerService.get(id);
         return Response.ok(owner).build();
     }
-    
+
     @GET
     @Path("getbyvat/{vat}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -45,7 +45,7 @@ public class PropertyOwnerResource {
         PropertyOwner owner = propertyOwnerService.searchByVat(vat);
         return Response.ok(owner).build();
     }
-    
+
     @GET
     @Path("getbyemail/{email}")
     @Produces(MediaType.APPLICATION_JSON)

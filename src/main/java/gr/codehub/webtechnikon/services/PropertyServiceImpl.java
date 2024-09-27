@@ -38,6 +38,10 @@ public class PropertyServiceImpl implements PropertyService {
     public List<Property> findByOwnerVatNumber(Long vatNumber) {
         return propertyRepository.findByOwnerVatNumber(vatNumber);
     }
+    
+    public List<Property> getProperties(Long vat){
+        return propertyRepository.findByOwnerVatNumber(vat);
+    }
 
     @Override
     public Property createProperty(Long propertyIdNumber, String address, int yearOfConstruction, PropertyType propertyType, Long propertyOwnerId) {

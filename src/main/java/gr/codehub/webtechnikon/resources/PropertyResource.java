@@ -13,6 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.List;
 import java.util.Optional;
 
 @Path("/property")
@@ -36,6 +37,21 @@ public class PropertyResource {
     public Response getByPropertyIdNumber(@PathParam("id") Long id) {
         Optional<Property> property = propertyService.findByPropertyIdNumber(id);
         return Response.ok(property.get()).build();
+    }
+    
+    @GET
+    @Path("byOwnerVat/{vat}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPropertiesByOwnerVat(@PathParam("vat") Long vat) {
+        List<Property> properties = propertyService.findByOwnerVatNumber(vat);
+
+        if (properties.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("No properties found for owner with VAT " + vat)
+                    .build();
+        }
+
+        return Response.ok(properties).build();
     }
 
     @POST

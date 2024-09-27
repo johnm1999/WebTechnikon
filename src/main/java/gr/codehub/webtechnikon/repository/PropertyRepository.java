@@ -1,5 +1,6 @@
 package gr.codehub.webtechnikon.repository;
 
+import gr.codehub.webtechnikon.exception.OwnerNotFoundException;
 import gr.codehub.webtechnikon.model.Property;
 import gr.codehub.webtechnikon.model.PropertyOwner;
 import jakarta.enterprise.context.RequestScoped;
@@ -75,11 +76,17 @@ public class PropertyRepository implements Repository<Property> {
     }
 
     @Transactional
-    public List<Property> findByOwnerVatNumber(Long vatNumber) {
-        TypedQuery<Property> query = entityManager.createQuery(
-                "SELECT p FROM Property p WHERE p.propertyOwner.vat = :vatNumber AND p.isActive = true", Property.class);
-        query.setParameter("vatNumber", vatNumber);
-        return query.getResultList();
+    public List<Property> findByOwnerVatNumber(Long vat) {
+        List<Property> properties = entityManager.createQuery("SELECT p FROM Property p WHERE p.propertyOwner.vat = :vat AND p.isActive = true", Property.class)
+            .setParameter("vat", vat)
+            .getResultList();
+
+        if (properties.isEmpty()) {
+            throw new OwnerNotFoundException("This is not an existing owner");
+        }
+
+
+        return properties;
     }
 
 }
